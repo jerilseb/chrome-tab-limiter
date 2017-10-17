@@ -1,0 +1,23 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+    "manifest_version": 2,
+    "name": "Tab Limiter",
+    "author": "Jeril Sebastian",
+    "version": "1.0.0",
+    "description": "Limit maximum number of open tabs",
+    "icons": { 
+        "32": "32.png",
+        "48": "48.png",
+        "96": "96.png",
+       "128": "128.png" },
+    "permissions": ["tabs"],
+    "browser_action": {
+        "default_title": "Tab Limiter",
+        "default_icon": "48.png",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": ["raindrop.min.js", "background.js"]
+    }
+}
