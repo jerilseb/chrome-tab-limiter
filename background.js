@@ -1,4 +1,4 @@
-/* globals $, chrome */
+/* globals $, browser */
 var usedOn = {};
 var openedOn = {};
 var accessed = {};
@@ -69,7 +69,7 @@ function _handleTabReplaced(newTabId, oldTabId) {
 function _removeTab(tabId) {
     _debug('_removeTab', tabId);
     if (tabId) {
-        chrome.tabs.remove(tabId, function() {});
+        browser.tabs.remove(tabId, function() {});
         // _handleTabRemoved(tabId);
     }
 }
@@ -161,7 +161,7 @@ function _handleTabAdded(data) {
     _debug('added', tabId);
 
     // find tab to remove
-    chrome.tabs.query({currentWindow: true}, function(tabs) {
+    browser.tabs.query({currentWindow: true}, function(tabs) {
         tabs = tabs.filter(function(tab) {
             return !tab.pinned && tab.id != tabId;
         });
@@ -187,12 +187,12 @@ function _handleTabAdded(data) {
 }
 
 function _bindEvents() {
-    chrome.tabs.onActivated.addListener(_handleTabActivated);
-    chrome.tabs.onCreated.addListener(_handleTabAdded);
-    chrome.tabs.onAttached.addListener(_handleTabAdded);
-    chrome.tabs.onRemoved.addListener(_handleTabRemoved);
-    chrome.tabs.onDetached.addListener(_handleTabRemoved);
-    chrome.tabs.onReplaced.addListener(_handleTabReplaced);
+    browser.tabs.onActivated.addListener(_handleTabActivated);
+    browser.tabs.onCreated.addListener(_handleTabAdded);
+    browser.tabs.onAttached.addListener(_handleTabAdded);
+    browser.tabs.onRemoved.addListener(_handleTabRemoved);
+    browser.tabs.onDetached.addListener(_handleTabRemoved);
+    browser.tabs.onReplaced.addListener(_handleTabReplaced);
 }
 
 function _init() {
@@ -204,7 +204,7 @@ function _init() {
     // setting the time to their tab id ensures they will be closed in
     // the order they were opened in and there is no way to figure
     // out what time a tab was opened from chrome apis
-    chrome.tabs.query({}, function(tabs) {
+    browser.tabs.query({}, function(tabs) {
         for (var i = 0; i < tabs.length; i++) {
             if (!usedOn.hasOwnProperty(tabs[i].id)) {
                 openedOn[tabs[i].id] = tabs[i].id;
